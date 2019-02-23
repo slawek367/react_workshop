@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import UserList from './UserList'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+//Router lib https://reacttraining.com/react-router/web/example/basic
+
 
 const users = [
   {
@@ -44,21 +48,49 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-        <div className="row">
-          <div className="col" align="center">
-            <h2>Users</h2>
-            <UserList users={users} />
+        <Router>
+          <div>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+
+              <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div className="navbar-nav">
+                  <Link to="/">Home</Link>
+                  <Link to="/user_list">User list</Link>
+                </div>
+              </div>
+            </nav>
+
+            <Route exact path="/" component={Home} />
+            <Route path="/user_list" component={List} />
           </div>
-          <div className="col" align="center">
-            <h2>Favourite users</h2>
-            <UserList users={users.filter(user =>
-              user.favourite === true
-            )} />
-          </div>
-        </div>
+        </Router>
       </div>
     );
   }
 }
+
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+);
+
+const List = () => {
+  return (
+    <div className="row">
+      <div className="col" align="center">
+        <h2>Users</h2>
+        <UserList users={users} />
+      </div>
+      <div className="col" align="center">
+        <h2>Favourite users</h2>
+        <UserList users={users.filter(user =>
+          user.favourite === true
+        )} />
+      </div>
+    </div>
+  )
+}
+
 
 export default App;

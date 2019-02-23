@@ -10,6 +10,7 @@ function UserList(props) {
     const filterInputUsers = (event) => {
         let inputName = event.target.value.toLowerCase()
         if (inputName) {
+            // TODO, move filtering to "return" html part and use hook for filter state
             setUsers(props.users.filter(user => {
                 let isOk = false
                 Object.values(user).forEach(val => {
@@ -23,7 +24,6 @@ function UserList(props) {
         } else {
             setUsers(props.users)
         }
-        //sortUsers()
     }
 
     const sortUsers = () => {
